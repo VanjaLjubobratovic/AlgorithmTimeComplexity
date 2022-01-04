@@ -17,10 +17,10 @@ def main ():
     # print(linear_search(25, arr))
 
     # temporary fibonacci test
+    n = 20
     begin = time.perf_counter()
     print("FIBONACCI NON-DYNAMIC")
-    print(fib_non_dynamic_list(35))
-    # fib_non_dynamic(33)
+    print(fib_non_dynamic(n-1))
     end = time.perf_counter()
 
     print(f"Time to execute: {end - begin:0.4f} s")
@@ -28,7 +28,14 @@ def main ():
 
     begin = time.perf_counter()
     print("FIBONACCI DYNAMIC")
-    print(fib_dynamic(35, True))
+    print(fib_dynamic(n, False))
+    end = time.perf_counter()
+
+    print(f"Time to execute: {end - begin:0.4f} s")
+
+    begin = time.perf_counter()
+    print("FIBONACCI OPTIMIZED")
+    print(fib_optimized(n))
     end = time.perf_counter()
 
     print(f"Time to execute: {end - begin:0.4f} s")

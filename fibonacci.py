@@ -1,3 +1,5 @@
+MAX = 10000000
+
 def fib_non_dynamic(n):
     if n <= 1:
         return 1
@@ -17,3 +19,24 @@ def fib_dynamic(n, list):
         return arr
     else:
         return arr[-1]
+
+f = [0] * MAX
+def fib_optimized(n):
+    if n == 0:
+        return 0
+    if n == 1 or n == 2:
+        f[n] = 1
+        return f[n]
+    if (f[n]):
+        return f[n]
+    if n & 1:
+        k = (n + 1) // 2
+    else:
+        k = n // 2
+    
+    if (n & 1):
+        f[n] = (fib_optimized(k) * fib_optimized(k) + fib_optimized(k - 1) * fib_optimized(k - 1))
+    else:
+        f[n] = (2 * fib_optimized(k - 1) + fib_optimized(k)) * fib_optimized(k)
+    return f[n]
+
