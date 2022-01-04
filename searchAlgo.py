@@ -9,3 +9,9 @@ def binary_search(value, arr, low, high):
             return binary_search(value, arr, mid + 1, high)
     else:
         return -1
+
+def linear_search(value, arr):
+    for i in range(0, len(arr)):
+        if arr[i] == value:
+            return i
+    return -1
