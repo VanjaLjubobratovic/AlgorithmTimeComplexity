@@ -5,10 +5,10 @@ from fibonacci import *
 def main ():
     ##temporary binary search test
     print("BINARY SEARCH")
-    arr = np.random.randint(100, size=50)
+    arr = np.random.randint(100, size=100)
     arr[34] = 25
     arr.sort()
-    print(arr)
+    ##print(arr)
     print(binary_search(25, arr, 0, len(arr) - 1))
 
     ##temporary linear search test
@@ -18,6 +18,8 @@ def main ():
     ##temporary fibonacci test
     print("FIBONACCI NON-DYNAMIC")
     print(fib_non_dynamic_list(20))
+
+    generate_search_testcases()
 
 if __name__ == "__main__":
     main()
