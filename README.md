@@ -1,2 +1,2 @@
 # AlgorithmTimeComplexity
- Repozitorij za projekt iz skriptnih jezika
+ Repozitorij za projekt iz kolegija Programiranje: Skriptni jezici
