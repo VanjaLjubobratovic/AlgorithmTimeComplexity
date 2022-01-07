@@ -49,13 +49,24 @@ def Read_testcases():
         test_cases.append(i['Matrix'])
     return test_cases
 
+def Generate_results(test_cases):
+    data = {}
+    data["Results"] = []
+    for i in test_cases:
+        begin = time.perf_counter()
+        mat = MatrixMultiplication(i,i)
+        end = time.perf_counter()
+        data["Results"].append({
+                "Size": len(i[0]),
+                "Time": (end - begin),
+            })
+    with open("MatrixResults.txt", "w") as outfile:
+        json.dump(data, outfile)
 
 
-#generate_testcases(2,50,1)
+#generate_testcases(2,100,3)
 test_cases = Read_testcases()
-for i in test_cases:
-    begin = time.perf_counter()
-    mat = MatrixMultiplication(i,i)
-    end = time.perf_counter()
-    print(f"Time to execute: {end - begin:0.7f} s")
+Generate_results(test_cases)
+
+
 
