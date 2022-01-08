@@ -103,6 +103,7 @@ class Quicksort:
         return reverse_arr    
 
     def generate_results(min, max, step):
+        sys.setrecursionlimit(100000)
         current_size = min
         data = {}
         data["Random pivot random array"] = []
@@ -113,67 +114,58 @@ class Quicksort:
         data["Last pivot reverse array"] = []
         while current_size < max:
             test_rnd_array = Quicksort.generate_random_array(current_size)
-            test_rv_array = Quicksort.generate_reverse_array(current_size)
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
             begin = time.perf_counter()
-            Quicksort.quick_sort_rnd(temp_rnd_array)
+            Quicksort.quick_sort_rnd(test_rnd_array)
             end = time.perf_counter()
             data["Random pivot random array"].append({
                 "Size": current_size,
                 "Time": float(end - begin)
             })
 
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
+            test_rv_array = Quicksort.generate_reverse_array(current_size)
             begin = time.perf_counter()
-            Quicksort.quick_sort_rnd(temp_rv_array)
+            Quicksort.quick_sort_rnd(test_rv_array)
             end = time.perf_counter()
             data["Random pivot reverse array"].append({
                 "Size": current_size,
                 "Time": float(end - begin)
             })
 
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
+            test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
-            Quicksort.quick_sort_mid(temp_rnd_array)
+            Quicksort.quick_sort_mid(test_rnd_array)
             end = time.perf_counter()
             data["Middle pivot random array"].append({
                 "Size": current_size,
                 "Time": float(end - begin)
             })
 
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
+            test_rv_array = Quicksort.generate_reverse_array(current_size)
             begin = time.perf_counter()
-            Quicksort.quick_sort_mid(temp_rv_array)
+            Quicksort.quick_sort_mid(test_rv_array)
             end = time.perf_counter()
             data["Middle pivot reverse array"].append({
                 "Size": current_size,
                 "Time": float(end - begin)
             })
-            print("here")
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
-            print(temp_rnd_array)
+
+            test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
-            Quicksort.quick_sort_last(temp_rnd_array)
+            Quicksort.quick_sort_last(test_rnd_array)
             end = time.perf_counter()
             data["Last pivot random array"].append({
                 "Size": current_size,
                 "Time": float(end - begin)
             })
 
-            temp_rnd_array = test_rnd_array
-            temp_rv_array = test_rv_array
-            # begin = time.perf_counter()
-            # Quicksort.quick_sort_last(temp_rv_array)
-            # end = time.perf_counter()
-            # data["Last pivot reverse array"].append({
-            #     "Size": current_size,
-            #     "Time": float(end - begin)
-            # })
+            test_rv_array = Quicksort.generate_reverse_array(current_size//20)
+            begin = time.perf_counter()
+            Quicksort.quick_sort_last(test_rv_array)
+            end = time.perf_counter()
+            data["Last pivot reverse array"].append({
+                "Size": current_size//20,
+                "Time": float(end - begin)
+            })
             print(current_size)
             current_size += step
         
@@ -186,11 +178,3 @@ begin = time.perf_counter()
 Quicksort.generate_results(50000, 100000, 1000)
 end = time.perf_counter()
 print(f"Generation finished in: {end - begin:0.4f}s")
-
-# arr = Quicksort.generate_random_array(50000)
-# begin = time.perf_counter()
-# Quicksort.quick_sort_last(arr)
-# end = time.perf_counter()
-# print(f"Generation finished in: {end - begin:0.4f}s")
-# print(arr)
-
