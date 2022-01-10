@@ -18,7 +18,7 @@ class MatrixMultiplication:
                     result[i][j] += A[i][k] * B[k][j]                        
         return result
 
-    def Generate_random_matrix(n):
+    def generate_random_matrix(n):
         matrix = [[0 for i in range(n)] for j in range(n)]
         for i in range(n):
             for j in range(n):
@@ -29,13 +29,13 @@ class MatrixMultiplication:
         data = []
         while low < high:
             size_n = low
-            mat = MatrixMultiplication.Generate_random_matrix(size_n)
+            mat = MatrixMultiplication.generate_random_matrix(size_n)
             data.append(mat)
             low += step
         return data
     
-    #DEPRECATED FUNCTION
-    def Read_testcases():
+    #DEPRECATED FUNCTION, no longer reading test cases from json file
+    def read_testcases():
         test_cases = []
         with open("MatrixTestCases.txt") as fp:
             data = json.load(fp)
@@ -43,7 +43,7 @@ class MatrixMultiplication:
             test_cases.append(i['Matrix'])
         return test_cases
 
-    def Generate_results(test_cases):
+    def generate_results(test_cases):
         data = {}
         data["Results"] = []
         for i in test_cases:
@@ -58,9 +58,13 @@ class MatrixMultiplication:
             json.dump(data, outfile)
 
 
+def main():
+    test_cases = MatrixMultiplication.generate_testcases(2,50,2)
+    begin = time.perf_counter()
+    MatrixMultiplication.generate_results(test_cases)
+    end = time.perf_counter()
+    print(f"Generation finished in: {end - begin:0.4f}s")
 
-test_cases = MatrixMultiplication.generate_testcases(2,100,2)
-MatrixMultiplication.Generate_results(test_cases)
-
-
+if __name__ == "__main__":
+    main()
 

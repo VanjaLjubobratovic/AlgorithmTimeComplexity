@@ -3,6 +3,7 @@ import numpy as np
 import time
 import json
 import sys
+
 class Quicksort:
     def partition_last(nums, low, high):
         pivot = nums[high-1]
@@ -113,6 +114,8 @@ class Quicksort:
         data["Last pivot random array"] = []
         data["Last pivot reverse array"] = []
         while current_size < max:
+
+            #Quicksort with random pivot and random array as input
             test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
             Quicksort.quick_sort_rnd(test_rnd_array)
@@ -122,6 +125,7 @@ class Quicksort:
                 "Time": float(end - begin)
             })
 
+            #Quicksort with random pivot and reverse sorted array as input
             test_rv_array = Quicksort.generate_reverse_array(current_size)
             begin = time.perf_counter()
             Quicksort.quick_sort_rnd(test_rv_array)
@@ -131,6 +135,7 @@ class Quicksort:
                 "Time": float(end - begin)
             })
 
+            #Quicksort with middle element as pivot and random array as input
             test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
             Quicksort.quick_sort_mid(test_rnd_array)
@@ -140,6 +145,7 @@ class Quicksort:
                 "Time": float(end - begin)
             })
 
+            #Quicksort with middle element as pivot and reverse sorted array as input
             test_rv_array = Quicksort.generate_reverse_array(current_size)
             begin = time.perf_counter()
             Quicksort.quick_sort_mid(test_rv_array)
@@ -149,6 +155,7 @@ class Quicksort:
                 "Time": float(end - begin)
             })
 
+            #Quicksort with last element as pivot and random array as input
             test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
             Quicksort.quick_sort_last(test_rnd_array)
@@ -158,6 +165,7 @@ class Quicksort:
                 "Time": float(end - begin)
             })
 
+            #Quicksort with last element as pivot and reverse sorted array as input
             test_rv_array = Quicksort.generate_reverse_array(current_size//20)
             begin = time.perf_counter()
             Quicksort.quick_sort_last(test_rv_array)
@@ -172,9 +180,13 @@ class Quicksort:
         with open("QuicksortAlgorithmsResults.txt", "w") as outfile:
             json.dump(data, outfile)
 
-sys.setrecursionlimit(100000)
-print("Generating quicksort algorithms results")
-begin = time.perf_counter()
-Quicksort.generate_results(50000, 100000, 1000)
-end = time.perf_counter()
-print(f"Generation finished in: {end - begin:0.4f}s")
+def main():
+    sys.setrecursionlimit(100000)
+    print("Generating quicksort algorithms results")
+    begin = time.perf_counter()
+    Quicksort.generate_results(50000, 100000, 1000)
+    end = time.perf_counter()
+    print(f"Generation finished in: {end - begin:0.4f}s")
+
+if __name__ == "__main__":
+    main()
