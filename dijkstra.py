@@ -2,6 +2,7 @@ from queue import PriorityQueue
 import numpy as np
 import time
 import json 
+import matplotlib.pyplot as plt
  
 class Graph:
     def __init__(self, num_vertices):
@@ -86,7 +87,35 @@ class Graph:
             current_size += step
         with open("results/DijsktraTestResults.txt", "w") as outfile:
             json.dump(data, outfile)
- 
+    def read_results():
+        size_n = []
+        time_n = []
+        with open("results/DijsktraTestResults.txt") as fp:
+            data = json.load(fp)
+        for i in data['Dijsktra']:
+            size_n.append(i['Size'])
+            time_n.append(i['Time'])
+        results = {
+            "size_n" : size_n,
+            "time_n" : time_n
+        }
+        return results    
+
+    def draw_graph(results):
+        size_n = results["size_n"]
+        time_n = results["time_n"]
+        fig = plt.figure()
+        x = np.linspace(min(size_n),max(size_n),len(size_n))
+        y = (x + x**2*np.log(x)) / 1000000
+        fig.canvas.set_window_title('Dijkstra algorithm')
+        plt.plot(size_n, time_n, 'bo', markersize = 2, label = 'Dijkstra algorithm')  
+        plt.plot(x, y, label = 'f(x) = n + E*log(n)', color='red')  
+        plt.xscale('linear')
+        plt.xlabel('Size of input n')
+        plt.ylabel('Execution time(s)')
+        plt.title('Dijkstra algorithm')
+        plt.legend()
+        plt.show()
 
 # Privremena funkcija za testiranje algoritma
 def main():
@@ -97,11 +126,13 @@ def main():
     every other vertex, E should be 0.66(V^2 - V) on average
     '''
  
-    print("Generating Dijkstra results")
-    begin = time.perf_counter()
-    Graph.generate_results(10, 600, 10)
-    end = time.perf_counter()
-    print(f"Generation finished in: {end - begin:0.4f}s")
+    # print("Generating Dijkstra results")
+    # begin = time.perf_counter()
+    # Graph.generate_results(10, 600, 10)
+    # end = time.perf_counter()
+    # print(f"Generation finished in: {end - begin:0.4f}s")
+    results = Graph.read_results()
+    Graph.draw_graph(results)
  
 if __name__ == "__main__":
     main()

@@ -3,7 +3,7 @@ import numpy as np
 import time
 import json
 import sys
-
+import matplotlib.pyplot as plt
 class Quicksort:
     def partition_last(nums, low, high):
         pivot = nums[high-1]
@@ -180,14 +180,100 @@ class Quicksort:
         
         with open("results/QuicksortAlgorithmsResults.txt", "w") as outfile:
             json.dump(data, outfile)
+        
+    def read_results():
+        size_n_rp_rnd = []
+        time_n_rp_rnd = []
+        size_n_rp_rev= []
+        time_n_rp_rev = []
+        size_n_mp_rnd = []
+        time_n_mp_rnd = []
+        size_n_mp_rev = []
+        time_n_mp_rev = []
+        size_n_lp_rnd = []
+        time_n_lp_rnd = []
+        size_n_lp_rev = []
+        time_n_lp_rev = []
+
+        with open("results/QuicksortAlgorithmsResults.txt") as fp:
+            data = json.load(fp)
+        for i in data['Random pivot random array']:
+            size_n_rp_rnd.append(i['Size'])
+            time_n_rp_rnd.append(i['Time'])
+        for i in data['Random pivot reverse array']:
+            size_n_rp_rev.append(i['Size'])
+            time_n_rp_rev.append(i['Time'])
+        for i in data['Middle pivot random array']:
+            size_n_mp_rnd.append(i['Size'])
+            time_n_mp_rnd.append(i['Time'])
+        for i in data['Middle pivot reverse array']:
+            size_n_mp_rev.append(i['Size'])
+            time_n_mp_rev.append(i['Time'])
+        for i in data['Last pivot random array']:
+            size_n_lp_rnd.append(i['Size'])
+            time_n_lp_rnd.append(i['Time'])
+        for i in data['Last pivot reverse array']:
+            size_n_lp_rev.append(i['Size'])
+            time_n_lp_rev.append(i['Time'])
+        results = {
+            "size_n_rp_rnd" : size_n_rp_rnd,
+            "time_n_rp_rnd" : time_n_rp_rnd,
+            "size_n_rp_rev" : size_n_rp_rev,
+            "time_n_rp_rev" : time_n_rp_rev,
+            "size_n_mp_rnd" : size_n_mp_rnd,
+            "time_n_mp_rnd" : time_n_mp_rnd,
+            "size_n_mp_rev" : size_n_mp_rev,
+            "time_n_mp_rev" : time_n_mp_rev,
+            "size_n_lp_rnd" : size_n_lp_rnd,
+            "time_n_lp_rnd" : time_n_lp_rnd,
+            "size_n_lp_rev" : size_n_lp_rev,
+            "time_n_lp_rev" : time_n_lp_rev
+        }            
+        return results
+
+    def draw_graph(results):
+        size_n_rp_rnd = results["size_n_rp_rnd"]
+        time_n_rp_rnd = results["time_n_rp_rnd"]
+        size_n_rp_rev = results["size_n_rp_rev"]
+        time_n_rp_rev = results["time_n_rp_rev"]
+        size_n_mp_rnd = results["size_n_mp_rnd"]
+        time_n_mp_rnd = results["time_n_mp_rnd"]
+        size_n_mp_rev = results["size_n_mp_rev"]
+        time_n_mp_rev = results["time_n_mp_rev"]
+        size_n_lp_rnd = results["size_n_lp_rnd"]
+        time_n_lp_rnd = results["time_n_lp_rnd"]
+        size_n_lp_rev = results["size_n_lp_rev"]
+        time_n_lp_rev = results["time_n_lp_rev"]
+        fig1 = plt.figure(1)
+        fig1.canvas.set_window_title('Quicksort algorithm')
+        x = np.linspace(min(size_n_rp_rnd),max(size_n_rp_rnd),len(size_n_rp_rnd))
+        y = x * np.log(x) / 1000000
+        plt.subplot(211)
+        plt.plot(size_n_rp_rnd, time_n_rp_rnd, label = 'Random pivot random array', color = 'red')
+        plt.plot(size_n_mp_rnd, time_n_mp_rnd, label = 'Middle pivot random array', color = 'blue')
+        plt.plot(size_n_lp_rnd, time_n_lp_rnd, label = 'Last pivot random array', color = 'green')
+        plt.plot(x, y, label = 'f(x) = n * log(n)', color='black', linestyle = 'dashed')
+        plt.ylabel('Execution time(s)')  
+        plt.xscale('linear')
+        plt.legend()
+        plt.subplot(212)
+        plt.plot(size_n_rp_rev, time_n_rp_rev, label = 'Random pivot reversed array', color = 'red')
+        plt.plot(size_n_mp_rev, time_n_mp_rev, label = 'Middle pivot reversed array', color = 'blue')
+        plt.plot(size_n_lp_rev, time_n_lp_rev, label = 'Last pivot reversed array', color = 'green')
+        plt.plot(x, y, label = 'f(x) = n * log(n)', color='black', linestyle = 'dashed')
+        plt.legend()
+        plt.xlabel('Size of input n')
+        plt.show()        
+        
 
 def main():
-    sys.setrecursionlimit(100000)
-    print("Generating quicksort algorithms results")
-    begin = time.perf_counter()
-    Quicksort.generate_results(50000, 100000, 1000)
-    end = time.perf_counter()
-    print(f"Generation finished in: {end - begin:0.4f}s")
-
+    # sys.setrecursionlimit(100000)
+    # print("Generating quicksort algorithms results")
+    # begin = time.perf_counter()
+    # Quicksort.generate_results(10, 100000, 1000)
+    # end = time.perf_counter()
+    # print(f"Generation finished in: {end - begin:0.4f}s")
+    results = Quicksort.read_results()
+    Quicksort.draw_graph(results)
 if __name__ == "__main__":
     main()
