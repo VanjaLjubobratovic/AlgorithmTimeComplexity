@@ -51,7 +51,9 @@ class Fibonacci:
         data["Dynamic"] = []
         data["Optimized"] = []
 
+
         for i in range(1, max_recursive + 1, 1):
+            print("Current recursive fibonacci input size: ", i)
             begin = time.perf_counter()
             Fibonacci.fib_non_dynamic(i)
             end = time.perf_counter()
@@ -62,6 +64,7 @@ class Fibonacci:
             })
         
         while current_size <= max:
+            print("Current Dynamic and optimized input size: ", current_size)
             begin = time.perf_counter()
             Fibonacci.fib_dynamic(current_size, False)
             end = time.perf_counter()
@@ -81,7 +84,7 @@ class Fibonacci:
             })
             current_size += step
         print("Writing data")
-        with open("FibonacciResults.txt", "w") as outfile:
+        with open("results/FibonacciResults.txt", "w") as outfile:
             json.dump(data, outfile)
 
 
@@ -89,7 +92,7 @@ class Fibonacci:
 def main():
     print("Generating Fibonacci results")
     begin = time.perf_counter()
-    Fibonacci.generate_results(10000, 200000, 5000, 35)
+    Fibonacci.generate_results(10000, 150000, 5000, 35)
     end = time.perf_counter()
     print(f"Generation finished in: {end - begin:0.4f}s")
 

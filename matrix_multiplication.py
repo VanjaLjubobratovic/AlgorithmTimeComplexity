@@ -47,6 +47,7 @@ class MatrixMultiplication:
         data = {}
         data["Results"] = []
         for i in test_cases:
+            print("Current matrix size: ", len(i[0]), " * ", len(i[0]))
             begin = time.perf_counter()
             mat = MatrixMultiplication.MatrixMulti(i,i)
             end = time.perf_counter()
@@ -54,7 +55,7 @@ class MatrixMultiplication:
                     "Size": len(i[0]),
                     "Time": (end - begin),
                 })
-        with open("MatrixResults.txt", "w") as outfile:
+        with open("results/MatrixResults.txt", "w") as outfile:
             json.dump(data, outfile)
 
 

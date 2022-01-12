@@ -115,6 +115,7 @@ class Quicksort:
         data["Last pivot reverse array"] = []
         while current_size < max:
 
+            print("Current array size: ", current_size)
             #Quicksort with random pivot and random array as input
             test_rnd_array = Quicksort.generate_random_array(current_size)
             begin = time.perf_counter()
@@ -177,7 +178,7 @@ class Quicksort:
             print(current_size)
             current_size += step
         
-        with open("QuicksortAlgorithmsResults.txt", "w") as outfile:
+        with open("results/QuicksortAlgorithmsResults.txt", "w") as outfile:
             json.dump(data, outfile)
 
 def main():

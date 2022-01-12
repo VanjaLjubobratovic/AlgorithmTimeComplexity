@@ -73,7 +73,7 @@ class Graph:
         data["Dijsktra"] = []
  
         while current_size <= max:
-            print("Current graph size: ", current_size)
+            print("Current number of nodes: ", current_size)
             test_graph = Graph.generate_random_graph(current_size)
             begin = time.perf_counter()
             Graph.dijkstra(test_graph, 0)
@@ -84,7 +84,7 @@ class Graph:
                 "Time": end - begin
             })
             current_size += step
-        with open("DijsktraTestResults.txt", "w") as outfile:
+        with open("results/DijsktraTestResults.txt", "w") as outfile:
             json.dump(data, outfile)
  
 

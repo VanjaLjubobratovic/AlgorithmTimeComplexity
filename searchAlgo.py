@@ -71,6 +71,7 @@ class SearchAlgo:
         data["Linear"] = []
         while current_size <= max:
             test_array, search_val = SearchAlgo.generate_array(current_size)
+            print("Current array size: ", current_size)
             begin = time.perf_counter()
             SearchAlgo.binary_search(search_val, test_array, 0, current_size - 1)
             end = time.perf_counter()
@@ -89,7 +90,7 @@ class SearchAlgo:
                 "Time": float(end - begin)
             })
             current_size += step
-        with open("SearchingAlgorithmsResults.txt", "w") as outfile:
+        with open("results/SearchingAlgorithmsResults.txt", "w") as outfile:
             json.dump(data, outfile)
 
 
