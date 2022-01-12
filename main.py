@@ -7,6 +7,7 @@ from quicksort import *
 from matrix_multiplication import *
 import time
 import matplotlib.pyplot as plt
+import os.path
 
 dijkstra_test = False
 search_test = False
@@ -66,6 +67,23 @@ def execute_algorithms():
         end = time.perf_counter()
         print(f"Generation finished in: {end - begin:0.4f}s\n\n")
 
+def plot_results():
+    if os.path.isfile("results/FibonacciResults.txt"):
+        print("Plotting results for Fibonacci...\n")
+        Fibonacci.draw_graph(Fibonacci.read_results())
+    if os.path.isfile("results/DijsktraTestResults.txt"):
+        print("Plotting results for Dijkstra...\n")
+        Graph.draw_graph(Graph.read_results())
+    if os.path.isfile("results/SearchingAlgorithmsResults.txt"):
+        print("Plotting results for binary and linear search...\n")
+        SearchAlgo.draw_graph(SearchAlgo.read_results())
+    if os.path.isfile("results/QuicksortAlgorithmsResults.txt"):
+        print("Plotting results for Quicksort...\n")
+        Quicksort.draw_graph(Quicksort.read_results())
+    if os.path.isfile("results/MatrixResults.txt"):
+        print("Plotting results for matrix multiplication algorithm...\n")
+        MatrixMultiplication.draw_graph(MatrixMultiplication.read_results())
+
 def main ():
     global fibonacci_test
     global matrix_test
@@ -110,6 +128,8 @@ def main ():
         option = int(input("\nEnter your option: "))
 
     execute_algorithms()
+    if result_plotting:
+        plot_results()
 
 if __name__ == "__main__":
     main()

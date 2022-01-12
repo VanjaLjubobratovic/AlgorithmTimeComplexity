@@ -175,7 +175,6 @@ class Quicksort:
                 "Size": current_size//20,
                 "Time": float(end - begin)
             })
-            print(current_size)
             current_size += step
         
         with open("results/QuicksortAlgorithmsResults.txt", "w") as outfile:
