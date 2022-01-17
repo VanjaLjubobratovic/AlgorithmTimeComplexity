@@ -63,7 +63,7 @@ def execute_algorithms():
     if matrix_test:
         print("Generating test results for matrix multiplication")
         begin = time.perf_counter()
-        MatrixMultiplication.generate_results(2,50,2)
+        MatrixMultiplication.generate_results(2,200,3)
         end = time.perf_counter()
         print(f"Generation finished in: {end - begin:0.4f}s\n\n")
 

@@ -27,15 +27,6 @@ class MatrixMultiplication:
             for j in range(n):
                 matrix[i][j] = random.randint(0, 100) 
         return matrix
-
-    def generate_testcases(low, high, step):
-        data = []
-        while low < high:
-            size_n = low
-            mat = MatrixMultiplication.generate_random_matrix(size_n)
-            data.append(mat)
-            low += step
-        return data
     
     #DEPRECATED FUNCTION, no longer reading test cases from json file
     def read_testcases():
@@ -46,7 +37,13 @@ class MatrixMultiplication:
             test_cases.append(i['Matrix'])
         return test_cases
 
-    def generate_results(test_cases):
+    def generate_results(low, high, step):
+        test_cases = []
+        while low < high:
+            size_n = low
+            mat = MatrixMultiplication.generate_random_matrix(size_n)
+            test_cases.append(mat)
+            low += step
         data = {}
         data["Results"] = []
         for i in test_cases:
